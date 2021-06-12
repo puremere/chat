@@ -1,5 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\EntityFramework.6.4.4\build\EntityFramework.props" Condition="Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.props')" />
   <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.0\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.0\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
@@ -45,10 +46,105 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="BotDetect, Version=4.4.2.0, Culture=neutral, PublicKeyToken=74616036388b765f, processorArchitecture=MSIL">
+      <HintPath>..\packages\Captcha.4.4.2\lib\net35\BotDetect.dll</HintPath>
+    </Reference>
+    <Reference Include="BotDetect.Web.Mvc, Version=4.4.2.0, Culture=neutral, PublicKeyToken=74616036388b765f, processorArchitecture=MSIL">
+      <HintPath>..\packages\Captcha.4.4.2\lib\net35\BotDetect.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Core, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.2.3\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Owin, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Owin.2.2.3\lib\net45\Microsoft.AspNet.Identity.Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.SignalR.Core, Version=2.4.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.SignalR.Core.2.4.2\lib\net45\Microsoft.AspNet.SignalR.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.SignalR.SystemWeb, Version=2.4.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.SignalR.SystemWeb.2.4.2\lib\net45\Microsoft.AspNet.SignalR.SystemWeb.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNetCore.Connections.Abstractions, Version=5.0.6.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNetCore.Connections.Abstractions.5.0.6\lib\net461\Microsoft.AspNetCore.Connections.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNetCore.Http.Features, Version=5.0.6.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNetCore.Http.Features.5.0.6\lib\net461\Microsoft.AspNetCore.Http.Features.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Bcl.AsyncInterfaces, Version=5.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Bcl.AsyncInterfaces.5.0.0\lib\net461\Microsoft.Bcl.AsyncInterfaces.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Extensions.DependencyInjection.Abstractions, Version=5.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.DependencyInjection.Abstractions.5.0.0\lib\net461\Microsoft.Extensions.DependencyInjection.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Options, Version=5.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.Options.5.0.0\lib\net461\Microsoft.Extensions.Options.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Primitives, Version=5.0.0.1, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.Primitives.5.0.1\lib\net461\Microsoft.Extensions.Primitives.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.3.0.1\lib\net45\Microsoft.Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Host.SystemWeb, Version=2.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Host.SystemWeb.2.1.0\lib\net45\Microsoft.Owin.Host.SystemWeb.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.3.0.1\lib\net45\Microsoft.Owin.Security.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Cookies, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.Cookies.3.0.1\lib\net45\Microsoft.Owin.Security.Cookies.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.OAuth, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.OAuth.3.0.1\lib\net45\Microsoft.Owin.Security.OAuth.dll</HintPath>
+    </Reference>
+    <Reference Include="Owin, Version=1.0.0.0, Culture=neutral, PublicKeyToken=f0ebd12fd5e55cc5, processorArchitecture=MSIL">
+      <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Buffers, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Buffers.4.5.1\lib\net461\System.Buffers.dll</HintPath>
+    </Reference>
     <Reference Include="System.Data" />
+    <Reference Include="System.Data.SQLite, Version=1.0.113.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
+      <HintPath>..\packages\Stub.System.Data.SQLite.Core.NetFramework.1.0.113.3\lib\net46\System.Data.SQLite.dll</HintPath>
+    </Reference>
     <Reference Include="System.Drawing" />
+    <Reference Include="System.IO.Pipelines, Version=5.0.0.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.IO.Pipelines.5.0.1\lib\net461\System.IO.Pipelines.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Memory, Version=4.0.1.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Memory.4.5.4\lib\net461\System.Memory.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Sockets, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Net.Sockets.4.3.0\lib\net46\System.Net.Sockets.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Numerics.Vectors, Version=4.1.4.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Numerics.Vectors.4.5.0\lib\net46\System.Numerics.Vectors.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.5.0.0\lib\net45\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Security" />
+    <Reference Include="System.Text.Encodings.Web, Version=5.0.0.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Text.Encodings.Web.5.0.1\lib\net461\System.Text.Encodings.Web.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Text.Json, Version=5.0.0.2, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Text.Json.5.0.2\lib\net461\System.Text.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Threading.Tasks.Extensions, Version=4.2.0.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Threading.Tasks.Extensions.4.5.4\lib\net461\System.Threading.Tasks.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.ValueTuple.4.5.0\lib\net461\System.ValueTuple.dll</HintPath>
+    </Reference>
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -120,35 +216,270 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="ChatHub .cs" />
+    <Compile Include="Classes\CaptchaHelper.cs" />
+    <Compile Include="Classes\ClaimsAuthorizeAttribute.cs" />
+    <Compile Include="Classes\CookieExtensions.cs" />
+    <Compile Include="Classes\customMethodes.cs" />
+    <Compile Include="Classes\DataPost.cs" />
+    <Compile Include="Classes\dateTimeConvert.cs" />
+    <Compile Include="Classes\Gzip.cs" />
+    <Compile Include="Classes\ImageResult.cs" />
+    <Compile Include="Classes\Mellat.cs" />
+    <Compile Include="Classes\Methodes.cs" />
+    <Compile Include="Classes\NoCacheAttribute .cs" />
+    <Compile Include="Classes\requestClassVM.cs" />
+    <Compile Include="Classes\SessionAuthorizeAttribute .cs" />
+    <Compile Include="Classes\SessionCheck.cs" />
+    <Compile Include="Classes\Upload.cs" />
+    <Compile Include="Classes\UploadImage.cs" />
+    <Compile Include="Classes\UserSessionModel.cs" />
+    <Compile Include="Classes\Variables.cs" />
+    <Compile Include="Classes\webservise.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\ScreenController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202106100748308_InitialCreate.cs" />
+    <Compile Include="Migrations\202106100748308_InitialCreate.designer.cs">
+      <DependentUpon>202106100748308_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202106120937282_level2.cs" />
+    <Compile Include="Migrations\202106120937282_level2.designer.cs">
+      <DependentUpon>202106120937282_level2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202106120955595_level3.cs" />
+    <Compile Include="Migrations\202106120955595_level3.designer.cs">
+      <DependentUpon>202106120955595_level3.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202106121039143_rolback.cs" />
+    <Compile Include="Migrations\202106121039143_rolback.designer.cs">
+      <DependentUpon>202106121039143_rolback.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\context.cs" />
+    <Compile Include="Models\dbManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ScreenModels\CallOffer.cs" />
+    <Compile Include="ScreenModels\User.cs" />
+    <Compile Include="ScreenModels\UserCall.cs" />
+    <Compile Include="Startup .cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="beep.mp3" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\Content\alertify\alertify.core.css" />
+    <Content Include="Content\Content\alertify\alertify.css" />
+    <Content Include="Content\Content\alertify\alertify.default.css" />
+    <Content Include="Content\Content\alertify\alertify.rtl.css" />
+    <Content Include="Content\Content\alertify\bootstrap.rtl.css" />
+    <Content Include="Content\Content\alertify\default.rtl.css" />
+    <Content Include="Content\Content\alertify\semantic.rtl.css" />
+    <Content Include="Content\Content\audioplayer.css" />
+    <Content Include="Content\Content\bootstrap\css\bootstrap-responsive.css" />
+    <Content Include="Content\Content\bootstrap\css\bootstrap-responsive.min.css" />
+    <Content Include="Content\Content\bootstrap\css\bootstrap.css" />
+    <Content Include="Content\Content\bootstrap\css\bootstrap.min.css" />
+    <Content Include="Content\Content\bootstrap\js\bootstrap.js" />
+    <Content Include="Content\Content\bootstrap\js\bootstrap.min.js" />
+    <Content Include="Content\Content\chatStyle.css" />
+    <Content Include="Content\Content\font-awesome.css" />
+    <Content Include="Content\Content\icomoon\fonts\icomoon.dev.svg" />
+    <Content Include="Content\Content\icomoon\fonts\icomoon.svg" />
+    <Content Include="Content\Content\icomoon\index.html" />
+    <Content Include="Content\Content\icomoon\license.txt" />
+    <Content Include="Content\Content\icomoon\lte-ie7.js" />
+    <Content Include="Content\Content\icomoon\style.css" />
+    <Content Include="Content\Content\main.css" />
+    <Content Include="Content\Content\Site.css" />
+    <Content Include="Content\Content\userDisplay.css" />
+    <Content Include="Content\css-circular-prog-bar.css" />
+    <Content Include="Content\fontawesome-all.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="fonts\webfonts\fa-brands-400.svg" />
+    <Content Include="fonts\webfonts\fa-duotone-900.svg" />
+    <Content Include="fonts\webfonts\fa-light-300.svg" />
+    <Content Include="fonts\webfonts\fa-regular-400.svg" />
+    <Content Include="fonts\webfonts\fa-solid.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="images\background.jpg" />
+    <Content Include="images\redbutt.png" />
+    <Content Include="Kalimba.mp3" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Content\Content\icomoon\fonts\icomoon.eot" />
+    <Content Include="Content\Content\icomoon\fonts\icomoon.ttf" />
+    <Content Include="Content\Content\icomoon\fonts\icomoon.woff" />
+    <Content Include="fonts\faNum\eot\IRANSansWeb%28FaNum%29_Black.eot" />
+    <Content Include="fonts\faNum\eot\IRANSansWeb%28FaNum%29_Bold.eot" />
+    <Content Include="fonts\faNum\eot\IRANSansWeb%28FaNum%29_Light.eot" />
+    <Content Include="fonts\faNum\eot\IRANSansWeb%28FaNum%29_Medium.eot" />
+    <Content Include="fonts\faNum\eot\IRANSansWeb%28FaNum%29_UltraLight.eot" />
+    <Content Include="fonts\faNum\ttf\IRANSansWeb%28FaNum%29.ttf" />
+    <Content Include="fonts\faNum\ttf\IRANSansWeb%28FaNum%29_Black.ttf" />
+    <Content Include="fonts\faNum\ttf\IRANSansWeb%28FaNum%29_Bold.ttf" />
+    <Content Include="fonts\faNum\ttf\IRANSansWeb%28FaNum%29_Light.ttf" />
+    <Content Include="fonts\faNum\ttf\IRANSansWeb%28FaNum%29_Medium.ttf" />
+    <Content Include="fonts\faNum\ttf\IRANSansWeb%28FaNum%29_UltraLight.ttf" />
+    <Content Include="fonts\faNum\woff2\IRANSansWeb%28FaNum%29.woff2" />
+    <Content Include="fonts\faNum\woff2\IRANSansWeb%28FaNum%29_Black.woff2" />
+    <Content Include="fonts\faNum\woff2\IRANSansWeb%28FaNum%29_Bold.woff2" />
+    <Content Include="fonts\faNum\woff2\IRANSansWeb%28FaNum%29_Light.woff2" />
+    <Content Include="fonts\faNum\woff2\IRANSansWeb%28FaNum%29_Medium.woff2" />
+    <Content Include="fonts\faNum\woff2\IRANSansWeb%28FaNum%29_UltraLight.woff2" />
+    <Content Include="fonts\faNum\woff\IRANSansWeb%28FaNum%29.woff" />
+    <Content Include="fonts\faNum\woff\IRANSansWeb%28FaNum%29_Black.woff" />
+    <Content Include="fonts\faNum\woff\IRANSansWeb%28FaNum%29_Bold.woff" />
+    <Content Include="fonts\faNum\woff\IRANSansWeb%28FaNum%29_Light.woff" />
+    <Content Include="fonts\faNum\woff\IRANSansWeb%28FaNum%29_Medium.woff" />
+    <Content Include="fonts\faNum\woff\IRANSansWeb%28FaNum%29_UltraLight.woff" />
+    <Content Include="fonts\lg.eot" />
+    <Content Include="fonts\lg.ttf" />
+    <Content Include="fonts\lg.woff" />
+    <Content Include="fonts\normalFont\eot\IRANSansWeb.eot" />
+    <Content Include="fonts\normalFont\eot\IRANSansWeb_Black.eot" />
+    <Content Include="fonts\normalFont\eot\IRANSansWeb_Bold.eot" />
+    <Content Include="fonts\normalFont\eot\IRANSansWeb_Light.eot" />
+    <Content Include="fonts\normalFont\eot\IRANSansWeb_Medium.eot" />
+    <Content Include="fonts\normalFont\eot\IRANSansWeb_UltraLight.eot" />
+    <Content Include="fonts\normalFont\ttf\IRANSansWeb.ttf" />
+    <Content Include="fonts\normalFont\ttf\IRANSansWeb_Black.ttf" />
+    <Content Include="fonts\normalFont\ttf\IRANSansWeb_Bold.ttf" />
+    <Content Include="fonts\normalFont\ttf\IRANSansWeb_Light.ttf" />
+    <Content Include="fonts\normalFont\ttf\IRANSansWeb_Medium.ttf" />
+    <Content Include="fonts\normalFont\ttf\IRANSansWeb_UltraLight.ttf" />
+    <Content Include="fonts\normalFont\woff2\IRANSansWeb.woff2" />
+    <Content Include="fonts\normalFont\woff2\IRANSansWeb_Black.woff2" />
+    <Content Include="fonts\normalFont\woff2\IRANSansWeb_Bold.woff2" />
+    <Content Include="fonts\normalFont\woff2\IRANSansWeb_Light.woff2" />
+    <Content Include="fonts\normalFont\woff2\IRANSansWeb_Medium.woff2" />
+    <Content Include="fonts\normalFont\woff2\IRANSansWeb_UltraLight.woff2" />
+    <Content Include="fonts\normalFont\woff\IRANSansWeb.woff" />
+    <Content Include="fonts\normalFont\woff\IRANSansWeb_Black.woff" />
+    <Content Include="fonts\normalFont\woff\IRANSansWeb_Bold.woff" />
+    <Content Include="fonts\normalFont\woff\IRANSansWeb_Light.woff" />
+    <Content Include="fonts\normalFont\woff\IRANSansWeb_Medium.woff" />
+    <Content Include="fonts\normalFont\woff\IRANSansWeb_UltraLight.woff" />
+    <Content Include="fonts\ttf\IRANSansWeb%28FaNum%29.ttf" />
+    <Content Include="fonts\ttf\IRANSansWeb%28FaNum%29_Black.ttf" />
+    <Content Include="fonts\ttf\IRANSansWeb%28FaNum%29_Bold.ttf" />
+    <Content Include="fonts\ttf\IRANSansWeb%28FaNum%29_Light.ttf" />
+    <Content Include="fonts\ttf\IRANSansWeb%28FaNum%29_Medium.ttf" />
+    <Content Include="fonts\ttf\IRANSansWeb%28FaNum%29_UltraLight.ttf" />
+    <Content Include="fonts\webfonts\fa-brands-400.eot" />
+    <Content Include="fonts\webfonts\fa-brands-400.ttf" />
+    <Content Include="fonts\webfonts\fa-brands-400.woff" />
+    <Content Include="fonts\webfonts\fa-brands-400.woff2" />
+    <Content Include="fonts\webfonts\fa-duotone-900.eot" />
+    <Content Include="fonts\webfonts\fa-duotone-900.ttf" />
+    <Content Include="fonts\webfonts\fa-duotone-900.woff" />
+    <Content Include="fonts\webfonts\fa-duotone-900.woff2" />
+    <Content Include="fonts\webfonts\fa-light-300.eot" />
+    <Content Include="fonts\webfonts\fa-light-300.ttf" />
+    <Content Include="fonts\webfonts\fa-light-300.woff" />
+    <Content Include="fonts\webfonts\fa-light-300.woff2" />
+    <Content Include="fonts\webfonts\fa-regular-400.eot" />
+    <Content Include="fonts\webfonts\fa-regular-400.ttf" />
+    <Content Include="fonts\webfonts\fa-regular-400.woff" />
+    <Content Include="fonts\webfonts\fa-regular-400.woff2" />
+    <Content Include="fonts\webfonts\fa-solid.eot" />
+    <Content Include="fonts\webfonts\fa-solid.ttf" />
+    <Content Include="fonts\webfonts\fa-solid.woff" />
+    <Content Include="fonts\webfonts\fa-solid.woff2" />
+    <Content Include="fonts\webfonts\ttf\IRANSansWeb%28FaNum%29.ttf" />
+    <Content Include="fonts\webfonts\ttf\IRANSansWeb%28FaNum%29_Black.ttf" />
+    <Content Include="fonts\webfonts\ttf\IRANSansWeb%28FaNum%29_Bold.ttf" />
+    <Content Include="fonts\webfonts\ttf\IRANSansWeb%28FaNum%29_Light.ttf" />
+    <Content Include="fonts\webfonts\ttf\IRANSansWeb%28FaNum%29_Medium.ttf" />
+    <Content Include="fonts\webfonts\ttf\IRANSansWeb%28FaNum%29_UltraLight.ttf" />
+    <Content Include="fonts\woff2\IRANSansWeb%28FaNum%29.woff2" />
+    <Content Include="fonts\woff2\IRANSansWeb%28FaNum%29_Black.woff2" />
+    <Content Include="fonts\woff2\IRANSansWeb%28FaNum%29_Bold.woff2" />
+    <Content Include="fonts\woff2\IRANSansWeb%28FaNum%29_Light.woff2" />
+    <Content Include="fonts\woff2\IRANSansWeb%28FaNum%29_Medium.woff2" />
+    <Content Include="fonts\woff2\IRANSansWeb%28FaNum%29_UltraLight.woff2" />
+    <Content Include="libman.json" />
+    <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
     <Content Include="Scripts\jquery-3.3.1.slim.js" />
     <Content Include="Scripts\jquery-3.3.1.slim.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.signalR-2.4.2.js" />
+    <Content Include="Scripts\jquery.signalR-2.4.2.min.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
-    <Content Include="Web.config" />
+    <Content Include="Scripts\Scripts\adapter.js" />
+    <Content Include="Scripts\Scripts\alertify.min.js" />
+    <Content Include="Scripts\Scripts\audioplayer.js" />
+    <Content Include="Scripts\Scripts\bootstrap-tagsinput-angular.min.js" />
+    <Content Include="Scripts\Scripts\bootstrap-tagsinput.min.js" />
+    <Content Include="Scripts\Scripts\bootstrap.js" />
+    <Content Include="Scripts\Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\Scripts\demo.js" />
+    <Content Include="Scripts\Scripts\flowplayer1.js" />
+    <Content Include="Scripts\Scripts\ga.js" />
+    <Content Include="Scripts\Scripts\hls.light.min.js" />
+    <None Include="Scripts\Scripts\jquery-1.7.1.intellisense.js" />
+    <Content Include="Scripts\Scripts\jquery-1.7.1.js" />
+    <Content Include="Scripts\Scripts\jquery-1.7.1.min.js" />
+    <None Include="Scripts\Scripts\jquery-3.3.1.intellisense.js" />
+    <Content Include="Scripts\Scripts\jquery-3.3.1.js" />
+    <Content Include="Scripts\Scripts\jquery-3.3.1.min.js" />
+    <Content Include="Scripts\Scripts\jquery-3.3.1.slim.js" />
+    <Content Include="Scripts\Scripts\jquery-3.3.1.slim.min.js" />
+    <Content Include="Scripts\Scripts\jquery-ui-1.8.20.js" />
+    <Content Include="Scripts\Scripts\jquery-ui-1.8.20.min.js" />
+    <Content Include="Scripts\Scripts\jquery.signalR-2.4.1.js" />
+    <Content Include="Scripts\Scripts\jquery.signalR-2.4.1.min.js" />
+    <Content Include="Scripts\Scripts\jquery.unobtrusive-ajax.js" />
+    <Content Include="Scripts\Scripts\jquery.unobtrusive-ajax.min.js" />
+    <None Include="Scripts\Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\Scripts\jquery.validate.js" />
+    <Content Include="Scripts\Scripts\jquery.validate.min.js" />
+    <Content Include="Scripts\Scripts\jquery.validate.unobtrusive.js" />
+    <Content Include="Scripts\Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\Scripts\knockout-2.2.1.debug.js" />
+    <Content Include="Scripts\Scripts\knockout-2.2.1.js" />
+    <Content Include="Scripts\Scripts\knockout.mapping-latest.js" />
+    <Content Include="Scripts\Scripts\main.js" />
+    <Content Include="Scripts\Scripts\MediaStreamRecorder.js" />
+    <Content Include="Scripts\Scripts\modernizr-2.5.3.js" />
+    <Content Include="Scripts\Scripts\modernizr-2.8.3.js" />
+    <Content Include="Scripts\Scripts\robust-websocket.js" />
+    <Content Include="Scripts\Scripts\socket.io.js" />
+    <Content Include="Scripts\Scripts\toastr.js" />
+    <Content Include="Scripts\Scripts\webcomponents-loader.js" />
+    <Content Include="Scripts\Scripts\chatroom\app.js" />
+    <Content Include="Scripts\Scripts\chatroom\connectionManager.js" />
+    <Content Include="Scripts\Scripts\chatroom\viewModel.js" />
+    <Content Include="Scripts\Scripts\webrtcdemo2\app.js" />
+    <Content Include="Scripts\Scripts\webrtcdemo2\connectionManager.js" />
+    <Content Include="Scripts\Scripts\webrtcdemo2\viewModel.js" />
+    <Content Include="Scripts\Scripts\webrtcdemo3\app.js" />
+    <Content Include="Scripts\Scripts\webrtcdemo3\connectionManager.js" />
+    <Content Include="Scripts\Scripts\webrtcdemo3\viewModel.js" />
+    <Content Include="Scripts\Scripts\webrtcdemo4\app.js" />
+    <Content Include="Scripts\Scripts\webrtcdemo4\connectionManager.js" />
+    <Content Include="Scripts\Scripts\webrtcdemo4\viewModel.js" />
+    <Content Include="Scripts\Scripts\webrtcdemo\app.js" />
+    <Content Include="Scripts\Scripts\webrtcdemo\connectionManager.js" />
+    <Content Include="Scripts\Scripts\webrtcdemo\multiStream.js" />
+    <Content Include="Scripts\Scripts\webrtcdemo\viewModel.js" />
+    <None Include="Scripts\Scripts\_references.js" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -162,10 +493,17 @@
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Screen\AdminFace.cshtml" />
+    <Content Include="Views\Screen\UserFace.cshtml" />
+    <Content Include="Scripts\Scripts\jquery-3.3.1.min.map" />
+    <Content Include="Scripts\Scripts\jquery-3.3.1.slim.min.map" />
+    <Content Include="Scripts\Scripts\rtc-demo.js.orig" />
+    <Content Include="Scripts\Scripts\socket.io.js.map" />
+    <Content Include="Views\Screen\chatroom.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Models\" />
+    <Folder Include="Scripts\Scripts\webrtcdemo3\webrtcdemo\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
@@ -179,6 +517,20 @@
     <None Include="packages.config" />
     <Content Include="Scripts\jquery-3.3.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.3.1.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\202106100748308_InitialCreate.resx">
+      <DependentUpon>202106100748308_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202106120937282_level2.resx">
+      <DependentUpon>202106120937282_level2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202106120955595_level3.resx">
+      <DependentUpon>202106120955595_level3.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202106121039143_rolback.resx">
+      <DependentUpon>202106121039143_rolback.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
@@ -213,7 +565,12 @@
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
     <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.0\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.0\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
+    <Error Condition="!Exists('..\packages\Stub.System.Data.SQLite.Core.NetFramework.1.0.113.3\build\net46\Stub.System.Data.SQLite.Core.NetFramework.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Stub.System.Data.SQLite.Core.NetFramework.1.0.113.3\build\net46\Stub.System.Data.SQLite.Core.NetFramework.targets'))" />
+    <Error Condition="!Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.4.4\build\EntityFramework.props'))" />
+    <Error Condition="!Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.4.4\build\EntityFramework.targets'))" />
   </Target>
+  <Import Project="..\packages\Stub.System.Data.SQLite.Core.NetFramework.1.0.113.3\build\net46\Stub.System.Data.SQLite.Core.NetFramework.targets" Condition="Exists('..\packages\Stub.System.Data.SQLite.Core.NetFramework.1.0.113.3\build\net46\Stub.System.Data.SQLite.Core.NetFramework.targets')" />
+  <Import Project="..\packages\EntityFramework.6.4.4\build\EntityFramework.targets" Condition="Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
