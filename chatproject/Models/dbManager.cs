@@ -46,9 +46,9 @@ namespace chatproject.Models
                     progressID = model.progressID,
                     type = model.type,
                     groupID = model.groupID,
-                    messageID = model.messageID
-                    //time = DateTime.Now.TimeOfDay,
-                    //date = DateTime.Now
+                    messageID = model.messageID,
+                    time = DateTime.Now.TimeOfDay,
+                    date = DateTime.Now
 
 
                 });
@@ -72,19 +72,26 @@ namespace chatproject.Models
             group obj =  dbcontext.groups.SingleOrDefault(x => x.token == groupname);
             return obj;
         }
-        public  IEnumerable<message> getMessagList(string groupname)
+        public  IEnumerable<message> getMessagList(string groupname,string id)
         {
 
             context dbcontext = new context();
+            TimeSpan time = DateTime.Now.TimeOfDay;
+            DateTime date = DateTime.Now;
+            Guid guidid = new Guid();
+            if (id != "")
+            {
+                guidid = Guid.Parse(id);
+                message lstmessage = dbcontext.messages.SingleOrDefault(x => x.messageID == guidid);
+                 time = lstmessage.time;
+                 date = lstmessage.date;
 
-
-            
+            }
            
-
-            List<message> lstmessage = dbcontext.messages.ToList();
+           
             group obj =  dbcontext.groups.SingleOrDefault(x => x.token == groupname);
             Guid groupID = obj.groupID;
-            List <message> list =  (dbcontext.messages.Where(x => x.group.groupID == groupID).ToList());  //.OrderByDescending(x=>x.time)
+            List <message> list =  (dbcontext.messages.Where(x => x.group.groupID == groupID && x.date <= date && x.time <= time && x.messageID != guidid).OrderByDescending(x=>x.date).ThenBy(x=>x.time).Take(15).ToList());  //.OrderByDescending(x=>x.time)
             return list;
 
 

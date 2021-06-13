@@ -24,8 +24,8 @@ namespace chatproject.Models
     {
         [Key]
         public Guid messageID { get; set; }
-        //public DateTime date { get; set; }
-        //public TimeSpan time { get; set; }
+        public DateTime date { get; set; }
+        public TimeSpan time { get; set; }
         public string type { get; set; }
         public string progressID { get; set; }
         public string username { get; set; }

@@ -12,7 +12,7 @@ function setTime() {
     minutesLabel.innerHTML = pad(parseInt(totalSeconds / 60));
 }
 function setTimeRefresh() {
-   
+
     secondsLabel.innerHTML = pad(00);
     minutesLabel.innerHTML = pad(00);
 }
@@ -32,6 +32,17 @@ function bleeper() {
 function setIntervalAndExecute(fn, t) {
     fn();
     return (setInterval(fn, t));
+}
+function play(url) {
+    return new Promise(function (resolve, reject) {   // return a promise
+        var audio = new Audio();                     // create audio wo/ src
+        audio.preload = "auto";                      // intend to play through
+        audio.autoplay = true;                       // autoplay when loaded
+        audio.onerror = reject;                      // on error, reject
+        audio.onended = resolve;                     // when done, resolve
+
+        audio.src = path + url + suffix; // just for example
+    });
 }
 
 var WebRtcDemo = WebRtcDemo || {};
@@ -58,7 +69,7 @@ WebRtcDemo.App = (function (viewModel, connectionManager) {
 
         var hub = $.connection.chatHub;
 
-        hub.client.setMessage = function (message, connectionID, name, type, progressID) {
+        hub.client.setMessage = function (message, connectionID, name, type, progressID, messageID,refresh) {
 
 
 
@@ -85,6 +96,7 @@ WebRtcDemo.App = (function (viewModel, connectionManager) {
                     hastext = true;
                     li = document.createElement('li');
                     li2 = document.createElement('li');
+                    li.id = messageID;
                     li.className = 'sent ' + connectionID;
                     li2.className = 'sent ' + connectionID;
                     li.innerHTML = `<span>` + name + ` : </span><br><p>` + msg + `</p> `;
@@ -94,6 +106,7 @@ WebRtcDemo.App = (function (viewModel, connectionManager) {
                     hastext = false;
                     url = message   // این یو آر ال میتواند هم یور ال هر آبجکتی باشد هم تکست آبحکت تکست
                     li = document.createElement('li');
+                    li.id = messageID;
                     li.className = 'sent ' + connectionID;
                     li.innerHTML = `<span>` + name + ` : </span><br><p>` + url + `</p> `;
                 }
@@ -101,12 +114,14 @@ WebRtcDemo.App = (function (viewModel, connectionManager) {
                 if (type == "image") {
                     console.log(url);
                     li2 = document.createElement('li');
+                    li2.id = messageID;
                     li2.className = 'sent ' + connectionID;
                     li2.innerHTML = `<span>` + name + ` : </span><br><div  style="position:relative;object-fit:scale-down;float:left;border-radius:0;border: 2px solid white;border-radius: 5px;"> <span class="downloadIconHolder"><i id="` + url + `"  class="fa fa-download" onclick="downlodIMG(this,1)"></i></span><img  style="min-width: 150px;max-width: 150px;border-radius:5px;margin: 0;"  src="/Files/0` + url + `"/></div>`;// `<img style="width:150px; float:left; border-radius:0" src="/Files/` + url + `" />`;
                     hasobject = true;
                 }
                 else if (type == "audio") {
                     li2 = document.createElement('li');
+                    li2.id = messageID;
                     li2.className = 'sent ' + connectionID;
                     li2.innerHTML = 'sent ' + connectionID;
                     li2.innerHTML = `<span>` + name + ` : </span><br><div  style="position:relative;object-fit:scale-down;float:left;border-radius:0;border: 2px solid white;border-radius: 5px;"> <span class="downloadIconHolder"><i id="` + url + `" class="fa fa-download" onclick="downlodIMG(this,2)"></i></span><audio controls='' style="float:right"><source src=""></source></audio></div>`;
@@ -114,6 +129,7 @@ WebRtcDemo.App = (function (viewModel, connectionManager) {
                 }
                 else if (type == "file") {
                     li2 = document.createElement('li');
+                    li2.id = messageID;
                     li2.className = 'sent ' + connectionID;
                     li2.innerHTML = `<span>` + name + ` : </span><br><div class='fileUploadParent  row'   style=""><img  src="/images/fileicon.png" /><span  >` + url + `</span></div>` + `<span  class="downloadIconHolder" style = "left: 5%;"><i id="` + url + `" class="fa fa-download"  onclick = downlodFile(this)></i></span>`;
                     hasobject = true;
@@ -124,26 +140,55 @@ WebRtcDemo.App = (function (viewModel, connectionManager) {
 
                 display = 'block';
                 var ul = $(".messages ul");
-                if (hasobject == true) {
-                    li2.style.display = display;
-                    ul.append(li2);
+                if (hasobject == true)
+                {
+                    if (refresh == 1) {
+
+                        var html = ul.html();
+                        ul.html(li2);
+                        ul.append(html);
+                    }
+                    else {
+                        li2.style.display = display;
+                        ul.append(li2);
+                    }
+                  
                 }
                 if (hastext == true) {
-                    li.style.display = display;
-                    ul.append(li);
+                    if (refresh == 1) {
+                        var html = ul.html();
+                        ul.html(li);
+                        ul.append(html);
+                    }
+                    else {
+                        li.style.display = display;
+                        ul.append(li);
+                    }
+                  
                 }
 
 
-
-                var objDiv = document.getElementById("message");
-                objDiv.scrollTop = objDiv.scrollHeight;
+                if (refresh != 1) {
+                    var objDiv = document.getElementById("message");
+                    objDiv.scrollTop = objDiv.scrollHeight;
+                } 
+                
                 // _hub.server.messageRcieved(connectionID, progressID);
 
             }
 
 
         };
-
+        hub.client.loading = function (type) {
+            console.log(type)
+            if (type == 1) {
+                $("#loading").show();
+            }
+            else {
+               
+                $("#loading").hide();
+            }
+        }
         hub.client.messageRecived = function (progressID) {
             var spg = $("#" + progressID).parent();
             let check = `<i class="fa fa-check" style="font-size: 12px;position: absolute;bottom: 5px;left: 10px;color: white;"></i>`;
@@ -235,7 +280,7 @@ WebRtcDemo.App = (function (viewModel, connectionManager) {
 
             }, function (event) {
                 alertify.alert('<h4>عدم ارتباط با سرور</h4> لطفا اینترنت خود را کنترل کنید و یا کانکشن خود را بروز رسانی کنید<br/><br/> ');
-                
+
                 viewModel.Loading(false);
             });
 
@@ -348,7 +393,7 @@ WebRtcDemo.App = (function (viewModel, connectionManager) {
                             count += 1;
                             const li = document.createElement('li');
                             li.className = "sent";
-                            li.innerHTML = `<span>` + Username+` : </span><br><img id="` + progressID + `" src="` + e.target.result + `" style="float:right; width: 150px;border-radius:0; position: relative;background-color: #ddd;color: black;"/>`;
+                            li.innerHTML = `<span>` + Username + ` : </span><br><img id="` + progressID + `" src="` + e.target.result + `" style="float:right; width: 150px;border-radius:0; position: relative;background-color: #ddd;color: black;"/>`;
                             ul.append(li);
                             messageType = 'image';
 
@@ -366,7 +411,7 @@ WebRtcDemo.App = (function (viewModel, connectionManager) {
 
                         const li = document.createElement('li');
                         li.className = "sent";
-                        li.innerHTML = `<div class='fileUploadParent row' id="` + progressID + `" style=""><div class="row"><spna>` + Username+`: <span><br><img  src="/images/fileicon.png" /><span  >` + filename + `</span><div></div>`;
+                        li.innerHTML = `<div class='fileUploadParent row' id="` + progressID + `" style=""><div class="row"><spna>` + Username + `: <span><br><img  src="/images/fileicon.png" /><span  >` + filename + `</span><div></div>`;
                         ul.append(li);
                         messageType = 'image';
 
@@ -397,7 +442,7 @@ WebRtcDemo.App = (function (viewModel, connectionManager) {
                         var ul = $(".messages ul");
                         const li = document.createElement('li');
                         li.className = 'sent';
-                        var ll = '<span>` + name + ` : </span><br><p>` + msg + `</p> ' 
+                        var ll = '<span>` + name + ` : </span><br><p>` + msg + `</p> '
                         li.innerHTML = `<div  id=` + progressID + `><p><span>` + Username + ` : </span><br>` + message + `</p></div> `;
                         // var li = ' <li class="sent"> <img src = "http://emilcarlsson.se/assets/mikeross.png" alt = "" /> </li >';
                         ul.append(li);
@@ -428,12 +473,15 @@ WebRtcDemo.App = (function (viewModel, connectionManager) {
                 mediaRecorder.save();
             });
             $("#recodrdVoice").on('mousedown', function (e) {
-                var audio = new Audio('/beep.mp3');
-                audio.play();
-                totalSeconds = 0;
-                time = setIntervalAndExecute(setTime, 1000);
-                intervalVar = setIntervalAndExecute(bleeper, 1000);
-                _startRecording();
+                play("/beep.mp3").then(function () {
+                    totalSeconds = 0;
+                    time = setIntervalAndExecute(setTime, 1000);
+                    intervalVar = setIntervalAndExecute(bleeper, 1000);
+                    _startRecording();
+                });
+                //var audio = new Audio('');
+                //audio.play();
+
             });
             $("#recodrdVoice").on('mouseup', function (e) {
                 clearInterval(time);
@@ -454,29 +502,36 @@ WebRtcDemo.App = (function (viewModel, connectionManager) {
                 clearInterval(intervalVar);
                 _stopRecording();
                 setTimeRefresh();
-        });
-        $("#chatMessage").on("input", function () {
-        
-            if ($(this).val().length > 0) {
-                
-                $(".submit").css("display", "block");
-                $("#recodrdVoice").css("display", "none");
-            }
-            else {
-                $(".submit").css("display", "none");
-                $("#recodrdVoice").css("display", "block");
-            }
-            //alert(length);
-        })
-        $("#chatMessage").on("keydown", function (e) {
-         
-            if (e.keyCode == '13') {
+            });
+            $("#chatMessage").on("input", function () {
+
                 if ($(this).val().length > 0) {
-                    $(".submit").click();
+
+                    $(".submit").css("display", "block");
+                    $("#recodrdVoice").css("display", "none");
                 }
-               
-            }
-        })
+                else {
+                    $(".submit").css("display", "none");
+                    $("#recodrdVoice").css("display", "block");
+                }
+                //alert(length);
+            })
+            $("#chatMessage").on("keydown", function (e) {
+
+                if (e.keyCode == '13') {
+                    if ($(this).val().length > 0) {
+                        $(".submit").click();
+                    }
+
+                }
+            })
+            $("#message").on("scroll", function () {
+
+                if ($("#message").scrollTop() == 0) {
+                    //user is at the top of the page; no need to show the back to top button
+                    _getNextList($("ul li:first").attr('id'));
+                }
+            });
 
 
 
@@ -496,11 +551,11 @@ WebRtcDemo.App = (function (viewModel, connectionManager) {
             //        f.style.display = (f.style.display == 'none' ? '' : 'none');
             //}, 1000);
 
-            $('#clicks').css("display","flex");
-           
-           
+            $('#clicks').css("display", "flex");
 
-           
+
+
+
             var mediaConstraints = {
                 audio: true
             };
@@ -508,7 +563,7 @@ WebRtcDemo.App = (function (viewModel, connectionManager) {
         },
         onMediaSuccess = function (stream) {
             var TOK = $("#validation").val();
-           
+
             //clearInterval(myVar); 
             mediaRecorder = new MediaStreamRecorder(stream);
             mediaRecorder.stream = stream;
@@ -611,7 +666,7 @@ WebRtcDemo.App = (function (viewModel, connectionManager) {
             console.error('media error', e);
         },
         _stopRecording = function () {
-           
+
 
             document.getElementById("clicks").style.display = "none";
 
@@ -624,6 +679,9 @@ WebRtcDemo.App = (function (viewModel, connectionManager) {
 
 
             //$('.start-recording').disabled = false;
+        },
+        _getNextList = function (id) {
+            _hub.server.getChatUpdate(viewModel.MyConnectionId(), viewModel.Groupname(), id);
         },
         bytesToSize = function (bytes) {
             var k = 1000;

@@ -302,18 +302,33 @@ namespace education2
         public void  addUser(user model, string groupName)
         {
             manager.addUser(model);
-            IEnumerable<message> lst = getChat(model.connectionID,groupName);
-            foreach (var item in lst)
+            IEnumerable<message> lst = getChat(model.connectionID,groupName,"");
+            Clients.Client(model.connectionID).loading(1);
+            foreach (var item in lst.Reverse())
             {
-                Clients.Client(model.connectionID).setMessage(item.content, "", item.username, item.type, item.progressID);
+                Clients.Client(model.connectionID).setMessage(item.content, "", item.username, item.type, item.progressID,item.messageID);
             }
+            Clients.Client(model.connectionID).loading(0);
 
         }
-        public  IEnumerable<message> getChat(string connectionID, string groupName)
+        
+        public  IEnumerable<message> getChat(string connectionID, string groupName,string id)
         {
-            IEnumerable<message> lst =  manager.getMessagList(groupName);
+            IEnumerable<message> lst =  manager.getMessagList(groupName,id);
             return lst;
-       }
+        }
+
+        public void getChatUpdate(string connectionID, string groupName, string id)
+        {
+            IEnumerable<message> lst = getChat(connectionID, groupName, id);
+            Clients.Client(connectionID).loading(1);
+            foreach (var item in lst)
+            {
+                Clients.Client(connectionID).setMessage(item.content, "", item.username, item.type, item.progressID, item.messageID,1);
+            }
+            Clients.Client(connectionID).loading(0);
+        }
+
         public void SendChat(string message, string type, string progressID,string username,string groupname)
         {
             context dbcontext = new context();

@@ -257,6 +257,10 @@
     <Compile Include="Migrations\202106121039143_rolback.designer.cs">
       <DependentUpon>202106121039143_rolback.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202106121251085_level5.cs" />
+    <Compile Include="Migrations\202106121251085_level5.designer.cs">
+      <DependentUpon>202106121251085_level5.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\context.cs" />
     <Compile Include="Models\dbManager.cs" />
@@ -309,6 +313,7 @@
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="images\background.jpg" />
+    <Content Include="images\loading.gif" />
     <Content Include="images\redbutt.png" />
     <Content Include="Kalimba.mp3" />
     <Content Include="Scripts\bootstrap.js" />
@@ -530,6 +535,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202106121039143_rolback.resx">
       <DependentUpon>202106121039143_rolback.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202106121251085_level5.resx">
+      <DependentUpon>202106121251085_level5.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
