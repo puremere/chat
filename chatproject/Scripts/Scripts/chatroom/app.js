@@ -4,6 +4,7 @@ var secondsLabel = document.getElementById("seconds");
 var totalSeconds = 0;
 var time;
 var f;
+var isfirst = 0;
 
 
 function setTime() {
@@ -41,7 +42,7 @@ function play(url) {
         audio.onerror = reject;                      // on error, reject
         audio.onended = resolve;                     // when done, resolve
 
-        audio.src = path + url + suffix; // just for example
+        audio.src =  url; // just for example
     });
 }
 
@@ -99,7 +100,7 @@ WebRtcDemo.App = (function (viewModel, connectionManager) {
                     li.id = messageID;
                     li.className = 'sent ' + connectionID;
                     li2.className = 'sent ' + connectionID;
-                    li.innerHTML = `<span>` + name + ` : </span><br><p>` + msg + `</p> `;
+                    li.innerHTML = `<span>` + name + ` </span><br><p>` + msg + `</p> `;
 
                 }
                 else {
@@ -108,7 +109,7 @@ WebRtcDemo.App = (function (viewModel, connectionManager) {
                     li = document.createElement('li');
                     li.id = messageID;
                     li.className = 'sent ' + connectionID;
-                    li.innerHTML = `<span>` + name + ` : </span><br><p>` + url + `</p> `;
+                    li.innerHTML = `<span>` + name + ` </span><br><p>` + url + `</p> `;
                 }
 
                 if (type == "image") {
@@ -116,7 +117,7 @@ WebRtcDemo.App = (function (viewModel, connectionManager) {
                     li2 = document.createElement('li');
                     li2.id = messageID;
                     li2.className = 'sent ' + connectionID;
-                    li2.innerHTML = `<span>` + name + ` : </span><br><div  style="position:relative;object-fit:scale-down;float:left;border-radius:0;border: 2px solid white;border-radius: 5px;"> <span class="downloadIconHolder"><i id="` + url + `"  class="fa fa-download" onclick="downlodIMG(this,1)"></i></span><img  style="min-width: 150px;max-width: 150px;border-radius:5px;margin: 0;"  src="/Files/0` + url + `"/></div>`;// `<img style="width:150px; float:left; border-radius:0" src="/Files/` + url + `" />`;
+                    li2.innerHTML = `<span>` + name + ` </span><br><div  style="position:relative;object-fit:scale-down;float:left;border-radius:0;border: 2px solid white;border-radius: 5px;"> <span class="downloadIconHolder"><i id="` + url + `"  class="fa fa-download" onclick="downlodIMG(this,1)"></i></span><img  style="min-width: 150px;max-width: 150px;border-radius:5px;margin: 0;"  src="/Files/0` + url + `"/></div>`;// `<img style="width:150px; float:left; border-radius:0" src="/Files/` + url + `" />`;
                     hasobject = true;
                 }
                 else if (type == "audio") {
@@ -124,14 +125,14 @@ WebRtcDemo.App = (function (viewModel, connectionManager) {
                     li2.id = messageID;
                     li2.className = 'sent ' + connectionID;
                     li2.innerHTML = 'sent ' + connectionID;
-                    li2.innerHTML = `<span>` + name + ` : </span><br><div  style="position:relative;object-fit:scale-down;float:left;border-radius:0;border: 2px solid white;border-radius: 5px;"> <span class="downloadIconHolder"><i id="` + url + `" class="fa fa-download" onclick="downlodIMG(this,2)"></i></span><audio controls='' style="float:right"><source src=""></source></audio></div>`;
+                    li2.innerHTML = `<span>` + name + ` </span><br><div  style="position:relative;object-fit:scale-down;float:left;border-radius:0;border: 2px solid white;border-radius: 5px;"> <span class="downloadIconHolder"><i id="` + url + `" class="fa fa-download" onclick="downlodIMG(this,2)"></i></span><audio controls='' style="float:right"><source src=""></source></audio></div>`;
                     hasobject = true;
                 }
                 else if (type == "file") {
                     li2 = document.createElement('li');
                     li2.id = messageID;
                     li2.className = 'sent ' + connectionID;
-                    li2.innerHTML = `<span>` + name + ` : </span><br><div class='fileUploadParent  row'   style=""><img  src="/images/fileicon.png" /><span  >` + url + `</span></div>` + `<span  class="downloadIconHolder" style = "left: 5%;"><i id="` + url + `" class="fa fa-download"  onclick = downlodFile(this)></i></span>`;
+                    li2.innerHTML = `<span>` + name + ` </span><br><div class='fileUploadParent  row'   style=""><img  src="/images/fileicon.png" /><span  >` + url + `</span></div>` + `<span  class="downloadIconHolder" style = "left: 5%;"><i id="` + url + `" class="fa fa-download"  onclick = downlodFile(this)></i></span>`;
                     hasobject = true;
                 }
                 else {
@@ -189,6 +190,13 @@ WebRtcDemo.App = (function (viewModel, connectionManager) {
                 $("#loading").hide();
             }
         }
+        hub.client.scrollTo = function (id) {
+            var elem = $("#"+id);
+            //$("#message").animate({ scrollTop: elem.offset().top }, { duration: 'fast', easing: 'swing' });
+            console.log(elem)
+            $("#message").scrollTop(elem.offset().top);
+        }
+        
         hub.client.messageRecived = function (progressID) {
             var spg = $("#" + progressID).parent();
             let check = `<i class="fa fa-check" style="font-size: 12px;position: absolute;bottom: 5px;left: 10px;color: white;"></i>`;
@@ -209,7 +217,15 @@ WebRtcDemo.App = (function (viewModel, connectionManager) {
 
                 // Tell the hub what our username is
                 console.log(viewModel.Groupname());
-                console.log(username);
+               
+                if (isfirst == 1 ) {
+                    $('ul').html('');
+                    console.log('clearing ')
+                }
+                else {
+                    isfirst = 1;
+                }
+                console.log("isfirst is :"+ isfirst);
                 hub.server.join(viewModel.Groupname(), username, 'client');
                 $("#chatname").text(username)
                 if (onSuccess) {
@@ -243,6 +259,7 @@ WebRtcDemo.App = (function (viewModel, connectionManager) {
                     }
                 });
                 console.log("restart connection");
+                $('ul').html('');
             }, 5000); // Restart connection after 5 seconds.
         });
 
@@ -258,8 +275,19 @@ WebRtcDemo.App = (function (viewModel, connectionManager) {
                 $('.browser-warning').show();
             }
 
+            var constraints = {
+                audio: true
+            };
+            navigator.mediaDevices.getUserMedia(constraints)
+            .then(function (stream) {
+                _startSession();
+            })
+            .catch(function (err) {
+                alertify.alert('<h4>عدم دسترسی به میکروفون</h4> برنامه جهت ادامه مجوز استفاده از میکروفون را لازم دارد<br/><br/> ');
+
+            });
             // Then proceed to the next step, gathering username
-            _startSession();
+           
         },
 
 
@@ -291,14 +319,16 @@ WebRtcDemo.App = (function (viewModel, connectionManager) {
 
 
 
-            $(".attachment").click(function () {
+        $(".attachment").click(function () {
                 $("#fileupload").click();
             });
             $("#addItem").click(function () {
                 $("#fileupload").click();
             });
             $("#fileupload").on('change', function () {
-
+                $("#recodrdVoice").hide();
+                $(".submit").css("display", "block");
+               
                 var input = this;
                 var url = $(this).val()
                 var ext = url.substring(url.lastIndexOf('.') + 1).toLowerCase();
@@ -363,6 +393,9 @@ WebRtcDemo.App = (function (viewModel, connectionManager) {
                 $("#attachmentDiv").fadeOut();
                 _Attachment = {};
                 $('.added').remove();
+                $(".submit").css("display", "none");
+                $("#recodrdVoice").show();
+                //$("#recodrdVoice").css("display", "block");
             });
 
             $(".submit").click(function () {  // به ازای هر آبجکت علاوه بر ذخیره سازی یه بلاب برای نمایش میسازد و مسیج را نیز میفرستد همراه با آرایه
@@ -393,7 +426,7 @@ WebRtcDemo.App = (function (viewModel, connectionManager) {
                             count += 1;
                             const li = document.createElement('li');
                             li.className = "sent";
-                            li.innerHTML = `<span>` + Username + ` : </span><br><img id="` + progressID + `" src="` + e.target.result + `" style="float:right; width: 150px;border-radius:0; position: relative;background-color: #ddd;color: black;"/>`;
+                            li.innerHTML = `<span>` + Username + `  </span><br><img id="` + progressID + `" src="` + e.target.result + `" style="float:right; width: 150px;border-radius:0; position: relative;background-color: #ddd;color: black;"/>`;
                             ul.append(li);
                             messageType = 'image';
 
@@ -411,7 +444,7 @@ WebRtcDemo.App = (function (viewModel, connectionManager) {
 
                         const li = document.createElement('li');
                         li.className = "sent";
-                        li.innerHTML = `<div class='fileUploadParent row' id="` + progressID + `" style=""><div class="row"><spna>` + Username + `: <span><br><img  src="/images/fileicon.png" /><span  >` + filename + `</span><div></div>`;
+                        li.innerHTML = `<div class='fileUploadParent row' id="` + progressID + `" style=""><div class="row"><spna>` + Username + ` <span><br><img  src="/images/fileicon.png" /><span  >` + filename + `</span><div></div>`;
                         ul.append(li);
                         messageType = 'image';
 
@@ -442,8 +475,8 @@ WebRtcDemo.App = (function (viewModel, connectionManager) {
                         var ul = $(".messages ul");
                         const li = document.createElement('li');
                         li.className = 'sent';
-                        var ll = '<span>` + name + ` : </span><br><p>` + msg + `</p> '
-                        li.innerHTML = `<div  id=` + progressID + `><p><span>` + Username + ` : </span><br>` + message + `</p></div> `;
+                        var ll = '<span>` + name + ` </span><br><p>` + msg + `</p> '
+                        li.innerHTML = `<div  id=` + progressID + `><span>` + Username + `  </span><br><p>` + message + `</p></div> `;
                         // var li = ' <li class="sent"> <img src = "http://emilcarlsson.se/assets/mikeross.png" alt = "" /> </li >';
                         ul.append(li);
 
@@ -461,7 +494,7 @@ WebRtcDemo.App = (function (viewModel, connectionManager) {
 
                 var objDiv = document.getElementById("message");
                 objDiv.scrollTop = objDiv.scrollHeight;
-                console.log($("#message").offset().top + '-');
+                //console.log($("#message").offset().top + '-');
 
                 $(".message-input").val('');
 
@@ -531,7 +564,9 @@ WebRtcDemo.App = (function (viewModel, connectionManager) {
                     //user is at the top of the page; no need to show the back to top button
                     _getNextList($("ul li:first").attr('id'));
                 }
-            });
+        });
+
+        
 
 
 
@@ -542,7 +577,7 @@ WebRtcDemo.App = (function (viewModel, connectionManager) {
             navigator.mediaDevices.getUserMedia(mediaConstraints).then(successCallback).catch(errorCallback);
         },
         _startRecording = function (idx) {
-            //$('#start-recording').disabled = true;
+          //$('#start-recording').disabled = true;
             //audiosContainer = document.getElementById('audios-container');
             //document.getElementById("clicks").innerHTML = "درحال رکورد";
 
@@ -550,16 +585,14 @@ WebRtcDemo.App = (function (viewModel, connectionManager) {
             //    intervalVar = setInterval(function () {
             //        f.style.display = (f.style.display == 'none' ? '' : 'none');
             //}, 1000);
+        $('#clicks').css("display", "flex");
+        var mediaConstraints = {
+            audio: true
+        };
+        _captureUserMedia(mediaConstraints, onMediaSuccess, onMediaError);
 
-            $('#clicks').css("display", "flex");
-
-
-
-
-            var mediaConstraints = {
-                audio: true
-            };
-            _captureUserMedia(mediaConstraints, onMediaSuccess, onMediaError);
+       
+            
         },
         onMediaSuccess = function (stream) {
             var TOK = $("#validation").val();
@@ -585,9 +618,11 @@ WebRtcDemo.App = (function (viewModel, connectionManager) {
 
                     const li = document.createElement('li');
                     li.className = "sent";
-                    li.innerHTML = `<span>` + Username + ` : </span><br><audio id=` + progressID + ` controls='' style="float:right"><source src="` + e.target.result + `"></source></audio>`;
+                    li.innerHTML = `<span>` + Username + `  </span><br><audio id=` + progressID + ` controls='' style="float:right"><source src="` + e.target.result + `"></source></audio>`;
                     var ul = $(".messages ul");
                     ul.append(li);
+                    var objDiv = document.getElementById("message");
+                    objDiv.scrollTop = objDiv.scrollHeight;
                 }
 
                 reader.readAsDataURL(fileObject);
@@ -621,6 +656,8 @@ WebRtcDemo.App = (function (viewModel, connectionManager) {
                         this.remove();
                     })
                     spg.append(srt);
+                    var objDiv = document.getElementById("message");
+                    objDiv.scrollTop = objDiv.scrollHeight;
                 });
 
                 // AJAX request finished event

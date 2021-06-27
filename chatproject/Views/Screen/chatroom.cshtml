@@ -86,7 +86,7 @@
 <body data-bind="attr: { 'data-mode': Mode }">
     <!-- Invalid browser alert, and reminder to enable media things -->
     <div class="container-fluid" style="position:absolute; padding:0">
-        <div class="row-fluid instructions">
+        @*<div class="row-fluid instructions">
             <div class="span12" style="text-align:center">
                 <div class="alert"><h4>توجه!</h4> مرورگر مجوز وب کم و میکرفون را لازم دارد  <strong>امکانات سایت تنها با ارائه مجوز از طرف شما قابل ارائه می باشد</strong>.</div>
             </div>
@@ -96,7 +96,7 @@
                 <div class="alert alert-error"><h4>شما باید از آخرین نسخه مرورگر کروم یا فایر فاکس استفاده کنید</h4>  <a href="https://nightly.mozilla.org/">آخرین نسخه فایرفاکس</a>، <a href="https://www.google.com/intl/en/chrome/browser/beta.html">آخرین نسخه کروم</a> </div>
                 <div class="alert alert-error"><h4>شما باید از آخرین نسخه مرورگر کروم یا فایر فاکس استفاده کنید</h4>  <a href="https://nightly.mozilla.org/">آخرین نسخه فایرفاکس</a>، <a href="https://www.google.com/intl/en/chrome/browser/beta.html">آخرین نسخه کروم</a> </div>
             </div>
-        </div>
+        </div>*@
     </div>
     <!-- Top Bar -->
     <div class="navbar navbar-inverse navbar-fixed-top" style="margin-bottom: 0px;position: relative;display:none">
@@ -257,14 +257,14 @@
                                 }
                             </style>
                             <div id="attachmentDiv" style="z-index:99; background-color:white; margin-bottom:5px;display:none;width: 100%;position: absolute;bottom: 0px;left: 0;text-align: left;border: 1px solid #9d9d9d;height: 100%;">
-                                <div style="padding:15px; background-color:aqua; text-align:center; ">پیش نمایش  <i id="removePreview" style="float:right" class="fa fa-remove"></i></div>
+                                <div style="padding:15px; background-color:#32465a; text-align:center;color:white ">پیش نمایش  <i id="removePreview" style="color:white; float:right;cursor:pointer" class="fal fa-times"></i></div>
                                 <div class="imageHolder" style="width:40%; height:40%; object-fit:scale-down;text-align:center; margin:15px auto">
                                     <img id="preview" style="max-height:100%; max-width:100%; " src="#" />
                                     <p id="previewText" style="text-align:center"></p>
                                 </div>
-                                <div style="margin:15px auto; width:70%; border-bottom:1px solid aqua; position:relative">
+                                <div style="margin:15px auto; width:70%; border-bottom:1px solid #32465a; position:relative">
                                     <input id="chatMessage2" placeholder="متن مورد نظر شما" type="text" style="" />
-                                    <i class="fa fa-paper-plane submit" style="border-radius:50%;padding: 7px;background-color:aqua;color:white;position: absolute;top: 10px;"></i>
+                                    <i class="fa fa-paper-plane submit" style="display:inline-block; border-radius:50%;padding: 7px;background-color:#32465a;color:white;position: absolute;top: 15px; margin-left:5px;right: -30px;"></i>
                                 </div>
                                 <div class="thumbHolder">
                                     <div class="thumbItem" id="addItem">

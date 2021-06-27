@@ -39,36 +39,40 @@ namespace chatproject.Models
             using ( context dbcontext = new context())
             {
                 TimeSpan time = DateTime.Now.TimeOfDay;
-                dbcontext.messages.Add(new message
+                if (!model.content.Contains("<body>"))
                 {
-                    content = model.content,
-                    username = model.username,
-                    progressID = model.progressID,
-                    type = model.type,
-                    groupID = model.groupID,
-                    messageID = model.messageID,
-                    time = DateTime.Now.TimeOfDay,
-                    date = DateTime.Now
+                    dbcontext.messages.Add(new message
+                    {
+                        content = model.content,
+                        username = model.username,
+                        progressID = model.progressID,
+                        type = model.type,
+                        groupID = model.groupID,
+                        messageID = model.messageID,
+                        time = DateTime.Now.TimeOfDay,
+                        date = DateTime.Now
 
 
-                });
-                dbcontext.SaveChanges();
+                    });
+                    dbcontext.SaveChanges();
+                }
+               
             }
         }
         public group getGroupID(string groupname)
         {
             context dbcontext = new context();
-            //List<group> lst = await dbcontext.groups.ToListAsync();
-            //if (lst.Count() == 0)
-            //{
-            //    dbcontext.groups.Add(new group()
-            //    {
-            //        title = "class1",
-            //         token = "123",
-            //    }
-            //    );
-            //   await dbcontext.SaveChangesAsync();
-            //}
+            List<group> lst =  dbcontext.groups.ToList();
+            if (lst.Count() == 0)
+            {
+                dbcontext.groups.Add(new group()
+                {
+                    title = "class1",
+                    token = "123",
+                }
+                );
+                 dbcontext.SaveChangesAsync();
+            }
             group obj =  dbcontext.groups.SingleOrDefault(x => x.token == groupname);
             return obj;
         }
@@ -91,7 +95,9 @@ namespace chatproject.Models
            
             group obj =  dbcontext.groups.SingleOrDefault(x => x.token == groupname);
             Guid groupID = obj.groupID;
-            List <message> list =  (dbcontext.messages.Where(x => x.group.groupID == groupID && x.date <= date && x.time <= time && x.messageID != guidid).OrderByDescending(x=>x.date).ThenBy(x=>x.time).Take(15).ToList());  //.OrderByDescending(x=>x.time)
+            List <message> list =  (dbcontext.messages.Where(x => x.group.groupID == groupID && x.date <= date  && x.messageID != guidid).OrderByDescending(x=>x.date).ThenBy(x=>x.time).Take(15).ToList());  //.OrderByDescending(x=>x.time)
+
+
             return list;
 
 

@@ -61,21 +61,22 @@ namespace education2
                 // Send down the new list to all clients
                 SendUserListUpdate(groupname);
 
-                Guid? groupID = getGroupID(groupname);
-                if (groupID != null)
+                
+            }
+            Guid? groupID = getGroupID(groupname);
+            if (groupID != null)
+            {
+                addUser(new user()
                 {
-                    addUser(new user()
-                    {
-                        connectionID = Context.ConnectionId,
-                        groupID = (Guid)groupID,
-                        username = username,
+                    connectionID = Context.ConnectionId,
+                    groupID = (Guid)groupID,
+                    username = username,
 
-                    }, groupname);
-                    // getChat(Context.ConnectionId, groupname).Wait();
-                }
+                }, groupname);
+               // getChat(Context.ConnectionId, groupname).Wait();
             }
 
-            
+
         }
 
         public override System.Threading.Tasks.Task OnDisconnected(bool boolian)
@@ -325,8 +326,11 @@ namespace education2
             foreach (var item in lst)
             {
                 Clients.Client(connectionID).setMessage(item.content, "", item.username, item.type, item.progressID, item.messageID,1);
+                
             }
             Clients.Client(connectionID).loading(0);
+            Clients.Client(connectionID).scrollTo(id);
+
         }
 
         public void SendChat(string message, string type, string progressID,string username,string groupname)
