@@ -35,8 +35,15 @@ namespace education2
         {
            
         }
+
+        //public async Task addGroup(string groupname)
+        //{
+        //    group user = Groups.SingleOrDefault(x => x.group == username && x.GroupName == groupname);
+        //}
         public async Task  Join(string groupname , string username,string type)
         {
+
+            addGroup(groupname);
             User user = Users.SingleOrDefault(x => x.Username == username && x.GroupName == groupname);
             if (user != null)
             {
@@ -73,8 +80,9 @@ namespace education2
                     username = username,
 
                 }, groupname);
-               // getChat(Context.ConnectionId, groupname).Wait();
             }
+
+            //getChat(Context.ConnectionId, groupname,"");
 
 
         }
@@ -307,12 +315,15 @@ namespace education2
             Clients.Client(model.connectionID).loading(1);
             foreach (var item in lst.Reverse())
             {
-                Clients.Client(model.connectionID).setMessage(item.content, "", item.username, item.type, item.progressID,item.messageID);
+                Clients.Client(model.connectionID).setinitialMessage(item.content, "", item.username, item.type, item.progressID,item.messageID,0);
             }
             Clients.Client(model.connectionID).loading(0);
 
         }
-        
+        public void addGroup(string groupname)
+        {
+            manager.addGroup(groupname);
+        }
         public  IEnumerable<message> getChat(string connectionID, string groupName,string id)
         {
             IEnumerable<message> lst =  manager.getMessagList(groupName,id);
@@ -326,7 +337,6 @@ namespace education2
             foreach (var item in lst)
             {
                 Clients.Client(connectionID).setMessage(item.content, "", item.username, item.type, item.progressID, item.messageID,1);
-                
             }
             Clients.Client(connectionID).loading(0);
             Clients.Client(connectionID).scrollTo(id);
@@ -336,7 +346,9 @@ namespace education2
         public void SendChat(string message, string type, string progressID,string username,string groupname)
         {
             context dbcontext = new context();
-            Clients.Group(groupname).setMessage(message, Context.ConnectionId, username, type, progressID);
+            Guid gui = System.Guid.NewGuid();
+            Clients.Group(groupname).setMessage(message, Context.ConnectionId, username, type, progressID, gui, 0);
+
 
             Guid? groupID = getGroupID(groupname);
             if (groupID == null)
@@ -354,7 +366,11 @@ namespace education2
 
                 groupID = getGroupID(groupname);
             }
-            Guid gui = System.Guid.NewGuid();
+           
+            if (!message.Contains("DOCTYPE"))
+            {
+                
+            }
             manager.addMessage(new message()
             {
                 content = message,
@@ -363,10 +379,8 @@ namespace education2
                 username = username,
                 groupID = (Guid)groupID,
                 messageID = gui
-
-
-
             }).Wait();
+
 
 
 
@@ -384,16 +398,16 @@ namespace education2
                 {
                     string groupname = Users.SingleOrDefault(x => x.ConnectionId == Context.ConnectionId).GroupName;
                     string name = Users.SingleOrDefault(x => x.ConnectionId == Context.ConnectionId).Username;
-                    Clients.Client(item.ConnectionId).setMessage(message, Context.ConnectionId, name, type,progressID);
-                    Clients.Client(Context.ConnectionId).setMessage(message, Context.ConnectionId, name, type, progressID);
+                    Clients.Client(item.ConnectionId).setMessage(message, Context.ConnectionId, name, type,progressID,"",0);
+                    Clients.Client(Context.ConnectionId).setMessage(message, Context.ConnectionId, name, type, progressID,"",0);
                 }
             }
             else
             {
                 string groupname = Users.SingleOrDefault(x => x.ConnectionId == Context.ConnectionId).GroupName;
                 string name = Users.SingleOrDefault(x => x.ConnectionId == Context.ConnectionId).Username;
-                Clients.Client(partner).setMessage(message, Context.ConnectionId, name, type, progressID);
-                Clients.Client(Context.ConnectionId).setMessage(message, Context.ConnectionId, name, type, progressID);
+                Clients.Client(partner).setMessage(message, Context.ConnectionId, name, type, progressID,0);
+                Clients.Client(Context.ConnectionId).setMessage(message, Context.ConnectionId, name, type, progressID,0);
             }
            
             

@@ -52,12 +52,40 @@ namespace education2.Controllers
             ViewBag.username = username;
             return View();
         }
-        public ActionResult chatroom(string groupname, string username, string token)
+
+
+        public ActionResult admin(string group_name, string user_name, string token)
         {
-            
-            ViewBag.groupname = groupname;
-            ViewBag.username = username;
+
+            ViewBag.groupname = group_name;
+            ViewBag.username = user_name;
+
             return View();
+
+        }
+        public ActionResult chat(string group_name, string user_name, string token)
+        {
+
+            ViewBag.groupname = group_name;
+            ViewBag.username = user_name;
+       
+            return View();
+
+        }
+        public ActionResult chatroom(string group_name, string user_name, string token)
+        {
+           
+            ViewBag.groupname = group_name;
+            ViewBag.username = user_name;
+            string url = "";
+            if (group_name.Contains("nebula"))
+            {
+                url = "https://live.stream1.ir/nebulairan/iframe.html";
+            }
+            
+            ViewBag.url = url;
+            return View();
+           
         }
         public ActionResult relay(string groupname)
         {

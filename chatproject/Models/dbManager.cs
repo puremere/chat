@@ -33,6 +33,24 @@ namespace chatproject.Models
                 dbcontext.SaveChanges();
             }
         }
+
+
+        public void addGroup(string groupname)
+        {
+            using (context dbcontext = new context())
+            {
+                group grup = dbcontext.groups.SingleOrDefault(l => l.title == groupname);
+                if (grup == null)
+                {
+                    group newgroup = new group();
+                    newgroup.groupID = Guid.NewGuid();
+                    newgroup.title = groupname;
+                    newgroup.token = groupname;
+                    dbcontext.groups.Add(newgroup);
+                }
+                dbcontext.SaveChanges();
+            }
+        }
         public async Task  addMessage(message model)
          {
           
@@ -73,7 +91,7 @@ namespace chatproject.Models
                 );
                  dbcontext.SaveChangesAsync();
             }
-            group obj =  dbcontext.groups.SingleOrDefault(x => x.token == groupname);
+            group obj =  dbcontext.groups.Where(x => x.token == groupname).ToList().First();
             return obj;
         }
         public  IEnumerable<message> getMessagList(string groupname,string id)
@@ -93,7 +111,7 @@ namespace chatproject.Models
             }
            
            
-            group obj =  dbcontext.groups.SingleOrDefault(x => x.token == groupname);
+            group obj =  dbcontext.groups.Where(x => x.token == groupname).ToList().First();
             Guid groupID = obj.groupID;
             List <message> list =  (dbcontext.messages.Where(x => x.group.groupID == groupID && x.date <= date  && x.messageID != guidid).OrderByDescending(x=>x.date).ThenBy(x=>x.time).Take(15).ToList());  //.OrderByDescending(x=>x.time)
 

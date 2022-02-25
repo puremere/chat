@@ -302,6 +302,7 @@
     <Content Include="Content\Content\Site.css" />
     <Content Include="Content\Content\userDisplay.css" />
     <Content Include="Content\css-circular-prog-bar.css" />
+    <Content Include="Content\flowplayer.skin.min.css" />
     <Content Include="Content\fontawesome-all.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
@@ -505,6 +506,8 @@
     <Content Include="Scripts\Scripts\rtc-demo.js.orig" />
     <Content Include="Scripts\Scripts\socket.io.js.map" />
     <Content Include="Views\Screen\chatroom.cshtml" />
+    <Content Include="Views\Screen\chat.cshtml" />
+    <Content Include="Views\Screen\admin.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

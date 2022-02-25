@@ -20,11 +20,19 @@
 .frameH {
     height: 100vh !important;
 }
-@media screen and (max-width: 360px) {
+@media screen and (max-width: 600px) {
     #frame {
         width: 100%;
-        height: 90vh;
-        margin-top:10px;
+        height: 60vh;
+        position:absolute;
+        bottom:0
+        /*margin-top:10px;*/
+    }
+    .frameH {
+        height: 60vh !important;
+    }
+    .frameHH {
+        height: 100vh !important;
     }
 }
 
@@ -604,7 +612,7 @@
     }
     #frame .content {
         width: calc(100%);
-        min-width: 300px !important;
+        /*min-width: 300px !important;*/
         
        
     }
@@ -780,7 +788,9 @@
         position: relative;
     }
 
-        #frame .content .message-input .wrap input {
+        #frame .content .message-input .wrap textarea {
+            overflow: hidden;
+            padding-top: 10px;
             font-family: "proxima-nova", "Source Sans Pro", sans-serif;
             float: left;
             border: none;
@@ -794,6 +804,7 @@
             border-radius: 50px;
             box-shadow: 2px 2px 5px -1px rgb(148 149 153);
             margin-bottom: 5px !important;
+            direction: rtl;
         }
 .messageinputRel {
     position: relative;

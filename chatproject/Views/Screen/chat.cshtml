@@ -1,5 +1,5 @@
 ﻿@{
-    ViewBag.Title = "WebRTC Video Caller";
+    ViewBag.Title = "";
     Layout = null;
 }
 <!DOCTYPE html>
@@ -154,196 +154,122 @@
 
                 </div>
                 <div id="chatHolder" style="overflow:hidden; width:100%">
-                    @{
-                        int w = Request.Browser.ScreenPixelsWidth;
-                        int h = Request.Browser.ScreenPixelsHeight;
-                        if (Request.Browser.IsMobileDevice || (w < 720 && h > w))
-                        {
-                            <style>
-                                .playerSection {
-                                    width: 70%;
-                                }
 
-                                .chatSection {
-                                    width: 30%;
-                                }
 
-                                .ifram1 {
-                                    position: absolute;
-                                    top: 0;
-                                    left: 0;
-                                    width: 100%;
-                                    height: 40%
-                                }
+                    <audio id="song" src="~/beep2.mp3"></audio>
+                    <div id="frame" class="frameHH">
+                        <div class="content content0" style="position:relative">
+                            @*<div class="contact-profile">
+                    <i class="fa fa-user"></i>
+                    <p id="chatname"></p>
 
-                                .ifram2 {
-                                    position: absolute;
-                                    top: 50%;
-                                    right: 0;
-                                    width: 100%;
-                                    height: 50%
-                                }
-                            </style>
+                </div>*@
+                            <div id="message" class="messages" style="width:100%">
 
-                        }
-                        else
-                        {
-                            <style>
-                                .playerSection {
-                                    width: 70%;
-                                }
-
-                                .chatSection {
-                                    width: 30%;
-                                    float:right
-                                }
-
-                                .ifram1 {
-                                    position: absolute;
-                                    top: 0;
-                                    left: 0;
-                                    width: 70%;
-                                    height: 100%
-                                }
-
-                                .ifram2 {
-                                    position: absolute;
-                                    top: 0;
-                                    right: 0;
-                                    width: 30%;
-                                    height: 100%
-                                }
-                            </style>
-                        }
-
-                    }
-                    <div class="playerSection col-lg-8">
-                        <iframe allowFullScreen="true" webkitallowfullscreen="true" mozallowfullscreen="true"
-                                class="ifram1" allow="camera;microphone" id="inlineFrameExample"
-                                title="Inline Frame Example"
-                                style=""
-                                src=" https://live.stream1.ir/neschanak/iframe.html">
-
-                            @*https://cdn3.stream1.ir/live5/smil:neschanak.smil/playlist.m3u8*@
-                        </iframe>
-                    </div>
-                    <div class="chatSection col-lg-8">
-
-                        <audio id="song" src="~/beep2.mp3"></audio>
-                        <div id="frame" class="frameH">
-                            <div class="content content0" style="position:relative">
-                                @*<div class="contact-profile">
-                        <i class="fa fa-user"></i>
-                        <p id="chatname"></p>
-
-                    </div>*@
-                                <div id="message" class="messages" style="width:100%">
-
-                                    <div id="loading">
-                                        <img src="~/images/loading.gif" />
-                                    </div>
-                                    <ul>
-                                        @*<li class="sent">
-                                <img src="http://emilcarlsson.se/assets/mikeross.png" alt="" />
-                                <p>How the hell am I supposed to get a jury to believe you when I am not even sure that I do?!</p>
-                            </li>
-                            <li class="replies">
-                                <img src="http://emilcarlsson.se/assets/harveyspecter.png" alt="" />
-                                <p>When you're backed against the wall, break the god damn thing down.</p>
-                            </li>
-                            <li class="replies">
-                                <img src="http://emilcarlsson.se/assets/harveyspecter.png" alt="" />
-                                <p>Excuses don't win championships.</p>
-                            </li>
-                            <li class="sent">
-                                <img src="http://emilcarlsson.se/assets/mikeross.png" alt="" />
-                                <p>Oh yeah, did Michael Jordan tell you that?</p>
-                            </li>
-                            <li class="replies">
-                                <img src="http://emilcarlsson.se/assets/harveyspecter.png" alt="" />
-                                <p>No, I told him that.</p>
-                            </li>
-                            <li class="replies">
-                                <img src="http://emilcarlsson.se/assets/harveyspecter.png" alt="" />
-                                <p>What are your choices when someone puts a gun to your head?</p>
-                            </li>
-                            <li class="sent">
-                                <img src="http://emilcarlsson.se/assets/mikeross.png" alt="" />
-                                <p>What are you talking about? You do what they say or they shoot you.</p>
-                            </li>
-                            <li class="replies">
-                                <img src="http://emilcarlsson.se/assets/harveyspecter.png" alt="" />
-                                <p>Wrong. You take the gun, or you pull out a bigger one. Or, you call their bluff. Or, you do any one of a hundred and forty six other things.</p>
-                            </li>*@
-                                    </ul>
+                                <div id="loading">
+                                    <img src="~/images/loading.gif" />
                                 </div>
-                                <div>
-                                    <span id="clicks" style="display:none">
+                                <ul>
+                                    @*<li class="sent">
+                            <img src="http://emilcarlsson.se/assets/mikeross.png" alt="" />
+                            <p>How the hell am I supposed to get a jury to believe you when I am not even sure that I do?!</p>
+                        </li>
+                        <li class="replies">
+                            <img src="http://emilcarlsson.se/assets/harveyspecter.png" alt="" />
+                            <p>When you're backed against the wall, break the god damn thing down.</p>
+                        </li>
+                        <li class="replies">
+                            <img src="http://emilcarlsson.se/assets/harveyspecter.png" alt="" />
+                            <p>Excuses don't win championships.</p>
+                        </li>
+                        <li class="sent">
+                            <img src="http://emilcarlsson.se/assets/mikeross.png" alt="" />
+                            <p>Oh yeah, did Michael Jordan tell you that?</p>
+                        </li>
+                        <li class="replies">
+                            <img src="http://emilcarlsson.se/assets/harveyspecter.png" alt="" />
+                            <p>No, I told him that.</p>
+                        </li>
+                        <li class="replies">
+                            <img src="http://emilcarlsson.se/assets/harveyspecter.png" alt="" />
+                            <p>What are your choices when someone puts a gun to your head?</p>
+                        </li>
+                        <li class="sent">
+                            <img src="http://emilcarlsson.se/assets/mikeross.png" alt="" />
+                            <p>What are you talking about? You do what they say or they shoot you.</p>
+                        </li>
+                        <li class="replies">
+                            <img src="http://emilcarlsson.se/assets/harveyspecter.png" alt="" />
+                            <p>Wrong. You take the gun, or you pull out a bigger one. Or, you call their bluff. Or, you do any one of a hundred and forty six other things.</p>
+                        </li>*@
+                                </ul>
+                            </div>
+                            <div>
+                                <span id="clicks" style="display:none">
 
-                                        <label id="minutes">00</label>:<label id="seconds">00</label>
-                                        <span><img id="beepImage" src="/images/redbutt.png" style=" float: right;"></span>
-                                    </span>
-                                    <div class="message-input">
-                                        <div class="wrap">
-                                            <button id="voicemessage" style="float:right"><i class="fa fa-microphone" aria-hidden="true"></i></button>
-                                            <textarea id="chatMessage" type="text" placeholder="پیام خود را بنویسید" style="text-align:right;margin-bottom:0" rows="1" ></textarea>
-                                            <button id="attach" class="attachment"> <i class="fa fa-paperclip " aria-hidden="true"></i></button>
-                                            <button style="display:none" class="submit"><i class="fa fa-paper-plane" aria-hidden="true"></i></button>
-                                            <input id="fileupload" type="file" style="display:none" />
-                                        </div>
+                                    <label id="minutes">00</label>:<label id="seconds">00</label>
+                                    <span><img id="beepImage" src="/images/redbutt.png" style=" float: right;"></span>
+                                </span>
+                                <div class="message-input">
+                                    <div class="wrap">
+                                        <button id="voicemessage" style="float:right"><i class="fa fa-microphone" aria-hidden="true"></i></button>
+                                        <textarea id="chatMessage" type="text" placeholder="پیام خود را بنویسید" style="text-align:right;margin-bottom:0" rows="1"></textarea>
+                                        <button id="attach" class="attachment"> <i class="fa fa-paperclip " aria-hidden="true"></i></button>
+                                        <button style="display:none" class="submit"><i class="fa fa-paper-plane" aria-hidden="true"></i></button>
+                                        <input id="fileupload" type="file" style="display:none" />
                                     </div>
                                 </div>
-                                <style>
+                            </div>
+                            <style>
 
 
-                                    #chatMessage2 {
-                                        border: none;
-                                        width: 100%;
+                                #chatMessage2 {
+                                    border: none;
+                                    width: 100%;
+                                    -webkit-box-shadow: none;
+                                    border: none;
+                                    padding: 0px 10px;
+                                    margin: 0;
+                                    padding: 5px !important;
+                                }
+
+                                    #chatMessage2:focus {
                                         -webkit-box-shadow: none;
-                                        border: none;
-                                        padding: 0px 10px;
-                                        margin: 0;
-                                        padding: 5px !important;
+                                        border: none
                                     }
 
-                                        #chatMessage2:focus {
-                                            -webkit-box-shadow: none;
-                                            border: none
-                                        }
+                                .thumbHolder {
+                                    padding: 15px;
+                                    display: flex;
+                                    justify-content: center
+                                }
 
-                                    .thumbHolder {
-                                        padding: 15px;
-                                        display: flex;
-                                        justify-content: center
-                                    }
-
-                                    .thumbItem {
-                                        width: 70px;
-                                        height: 60px;
-                                        object-fit: cover;
-                                        text-align: center;
-                                        padding: 10px;
-                                        background-color: white;
-                                        border: 1px solid #ddd;
-                                        margin-left: 5px;
-                                        font-size: 9px;
-                                    }
-                                </style>
-                                <div id="attachmentDiv" style="z-index:99; background-color:white; margin-bottom:5px;display:none;width: 100%;position: absolute;bottom: 0px;left: 0;text-align: left;border: 1px solid #9d9d9d;height: 100%;">
-                                    <div style="padding:15px; background-color:#32465a; text-align:center;color:white ">پیش نمایش  <i id="removePreview" style="color:white; float:right;cursor:pointer" class="fal fa-times"></i></div>
-                                    <div class="imageHolder" style="width:40%; height:40%; object-fit:scale-down;text-align:center; margin:15px auto">
-                                        <img id="preview" style="max-height:100%; max-width:100%; " src="#" />
-                                        <p id="previewText" style="text-align:center"></p>
-                                    </div>
-                                    <div style="margin:15px auto; width:70%; border-bottom:1px solid #32465a; position:relative">
-                                        <input id="chatMessage2" placeholder="متن مورد نظر شما" type="text" style="" />
-                                        <i class="fa fa-paper-plane submit" style="display:inline-block; border-radius:50%;padding: 7px;background-color:#32465a;color:white;position: absolute;top: 15px; margin-left:5px;right: -30px;"></i>
-                                    </div>
-                                    <div class="thumbHolder">
-                                        <div class="thumbItem" id="addItem">
-                                            <p style="margin:7px 0">افزودن مورد</p>
-                                            <i class="fa fa-plus"></i>
-                                        </div>
+                                .thumbItem {
+                                    width: 70px;
+                                    height: 60px;
+                                    object-fit: cover;
+                                    text-align: center;
+                                    padding: 10px;
+                                    background-color: white;
+                                    border: 1px solid #ddd;
+                                    margin-left: 5px;
+                                    font-size: 9px;
+                                }
+                            </style>
+                            <div id="attachmentDiv" style="z-index:99; background-color:white; margin-bottom:5px;display:none;width: 100%;position: absolute;bottom: 0px;left: 0;text-align: left;border: 1px solid #9d9d9d;height: 100%;">
+                                <div style="padding:15px; background-color:#32465a; text-align:center;color:white ">پیش نمایش  <i id="removePreview" style="color:white; float:right;cursor:pointer" class="fal fa-times"></i></div>
+                                <div class="imageHolder" style="width:40%; height:40%; object-fit:scale-down;text-align:center; margin:15px auto">
+                                    <img id="preview" style="max-height:100%; max-width:100%; " src="#" />
+                                    <p id="previewText" style="text-align:center"></p>
+                                </div>
+                                <div style="margin:15px auto; width:70%; border-bottom:1px solid #32465a; position:relative">
+                                    <input id="chatMessage2" placeholder="متن مورد نظر شما" type="text" style="" />
+                                    <i class="fa fa-paper-plane submit" style="display:inline-block; border-radius:50%;padding: 7px;background-color:#32465a;color:white;position: absolute;top: 15px; margin-left:5px;right: -30px;"></i>
+                                </div>
+                                <div class="thumbHolder">
+                                    <div class="thumbItem" id="addItem">
+                                        <p style="margin:7px 0">افزودن مورد</p>
+                                        <i class="fa fa-plus"></i>
                                     </div>
                                 </div>
                             </div>
